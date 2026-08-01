@@ -56,8 +56,17 @@ def gaussian_source(cfg: Config, X: np.ndarray, Y: np.ndarray) -> np.ndarray:
 
 
 def laplacian_neumann(T: np.ndarray, dx: float, dy: float) -> np.ndarray:
-    """5-point Laplacian with zero-flux boundaries (edge-padded ghost nodes)."""
-    Tp = np.pad(T, 1, mode="edge")
+    """5-point Laplacian with zero-flux boundaries.
+
+    Ghost nodes mirror the first interior neighbor (dT/dn=0 via a centered
+    difference at the boundary), not the boundary value itself. Since the
+    grid is node-centered with boundary nodes exactly on the domain edge
+    (np.linspace(0, L, n)), each boundary node represents a half-width
+    control volume; this mirroring is what makes total thermal energy
+    conserve exactly under insulated boundaries (verified against
+    trapezoidal-weighted integration with no source term).
+    """
+    Tp = np.pad(T, 1, mode="reflect")
     d2Tdx2 = (Tp[1:-1, 2:] - 2 * Tp[1:-1, 1:-1] + Tp[1:-1, :-2]) / dx ** 2
     d2Tdy2 = (Tp[2:, 1:-1] - 2 * Tp[1:-1, 1:-1] + Tp[:-2, 1:-1]) / dy ** 2
     return d2Tdx2 + d2Tdy2
