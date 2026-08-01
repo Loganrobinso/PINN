@@ -1,11 +1,5 @@
-google-genai
 numpy
-Pillow
-PyMuPDF
-scikit-learn
+scipy
 matplotlib
 tqdm
-python-dotenv
-umap-learn
-scipy
-transformers>=4.56,<5.0
+imageio

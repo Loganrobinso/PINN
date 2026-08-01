@@ -24,6 +24,7 @@ RUN mkdir -p /.cache /.local \
 	&& chmod -R 777 /.cache /.local
 
 ENV PYTHONUNBUFFERED=1 \
-	PYTHONDONTWRITEBYTECODE=1
+	PYTHONDONTWRITEBYTECODE=1 \
+	MPLCONFIGDIR=/.cache/matplotlib
 
 CMD ["bash"]

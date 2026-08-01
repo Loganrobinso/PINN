@@ -4,12 +4,13 @@ set -euo pipefail
 PROJECT_ROOT="$(cd -- "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$PROJECT_ROOT"
 
-DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-"$(whoami)/aagmf:latest"}
+DOCKER_IMAGE_NAME=${DOCKER_IMAGE_NAME:-"$(whoami)/heat-pinn:latest"}
 DOCKERFILE_PATH="docker/Dockerfile"
 REQUIREMENTS_PATH="requirements.txt"
 HASH_FILE=".docker_hashes"
 
 HOST_DATA_DIR=${HOST_DATA_DIR:-/data}
+SHM_SIZE=${SHM_SIZE:-8g}
 EXTRA_DOCKER_FLAGS=${EXTRA_DOCKER_FLAGS:-}
 
 compute_hashes() {
@@ -59,9 +60,16 @@ if [ -t 0 ] && [ -t 1 ]; then
     TTY_FLAG=(-it)
 fi
 
+GPU_FLAG=()
+if command -v nvidia-smi >/dev/null 2>&1 && docker info 2>/dev/null | grep -qi nvidia; then
+    GPU_FLAG=(--gpus all)
+elif command -v nvidia-smi >/dev/null 2>&1; then
+    echo "nvidia-smi found but Docker's NVIDIA runtime isn't configured; running on CPU." >&2
+fi
+
 RUN_ARGS=(
-    --gpus all
-    --shm-size=256g
+    "${GPU_FLAG[@]}"
+    --shm-size="$SHM_SIZE"
     --volume "$PROJECT_ROOT:/app"
     --rm
     --user "$(id -u):$(id -g)"
