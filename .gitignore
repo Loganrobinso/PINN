@@ -1,0 +1,101 @@
+# ── Markdown (except README) ─────────────────────────────────────
+*.md
+!README.md
+
+# ── LaTeX ────────────────────────────────────────────────────────
+*.tex
+*.bib
+*.aux
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.lof
+*.lot
+*.log
+missfont.log
+latex_tables/
+
+# ── Credentials & Keys ──────────────────────────────────────────
+key.md
+*.key
+*.pem
+.env
+.env.*
+secrets/
+archive/
+# ── Data (large files, not tracked) ─────────────────────────────
+data/
+embeddings/
+results/
+reports/
+# ── Model weights & checkpoints ─────────────────────────────────
+*.npy
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+checkpoints/
+run*/
+
+# ── Figures & outputs ───────────────────────────────────────────
+figures/
+tables/
+*.png
+*.pdf
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+*.csv
+
+# ── Docker ──────────────────────────────────────────────────────
+.docker_hashes
+
+# ── Python ──────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Jupyter ─────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Virtual environments ─────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── IDE ──────────────────────────────────────────────────────────
+.vscode/settings.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# ── Logs ─────────────────────────────────────────────────────────
+*.json.bak
+
+# ── Archives ─────────────────────────────────────────────────────
+*.tar.gz
+*.zip
+
+# ── HuggingFace cache ────────────────────────────────────────────
+.cache/
+
+# ── Scratch / dev scripts ────────────────────────────────────────
+geminitest.py
+evalbeforeablation.py
+fusion_evalbeforetablefull.py
+=1.5.0
+=4.56
+CLAUDE.md

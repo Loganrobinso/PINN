@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+venv/
+.env
+
+# data/results can get large — track structure, not contents
+data/*
+!data/.gitkeep
+results/*
+!results/.gitkeep
+
+# model checkpoints
+*.pt
+*.pth
+
+.DS_Store
